@@ -164,10 +164,16 @@
         );
         */
         // Used in blog post http://adndevblog.typepad.com/cloud_and_mobile/2016/10/get-all-database-ids-in-the-model.html
-        setTimeout(() => {
+        viewer.addEventListener(
+          Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT,
+          function(e) {
+            dbIds = getAllDbIds(viewer);
+          }
+        );
+        /*setTimeout(() => {
           dbIds = getAllDbIds(viewer);
           console.log('dbIds: ', dbIds);
-        }, 3000);
+        }, 3000);*/
       }
 
       /**

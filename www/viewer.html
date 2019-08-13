@@ -48,6 +48,7 @@
       };
       var documentId = 'urn:' + getUrlParameter('urn');
       let dbIds;
+      let color;
 
       function getAllDbIds(viewer) {
         var instanceTree = viewer.model.getData().instanceTree;
@@ -87,6 +88,7 @@
         // We could still make use of Document.getSubItemsWithProperties()
         // However, when using a ViewingApplication, we have access to the **bubble** attribute,
         // which references the root node of a graph that wraps each object from the Manifest JSON.
+        debugger;
         var viewables = viewerApp.bubble.search({ type: 'geometry' });
         if (viewables.length === 0) {
           console.error('Document contains no viewables.');
@@ -151,18 +153,21 @@
         );
 
         //
-        /*viewer.addEventListener(
+        viewer.addEventListener(
           Autodesk.Viewing.SELECTION_CHANGED_EVENT,
           function(e) {
             if (e.dbIdArray.length) {
               var dbId = e.dbIdArray[0];
-              console.log('DbId: ' + dbId);
+              // console.log('DbId: ' + dbId);
               // viewer.setThemingColor(dbId, new THREE.Vector4(0, 1, 1, 1));
-              viewer.setThemingColor(dbId, new THREE.Vector4(1, 0, 0, 0.5));
+              // viewer.setThemingColor(dbId, new THREE.Vector4(1, 0, 0, 0.5));
+              if (color) {
+                viewer.setThemingColor(dbId, color);
+              }
             }
           }
         );
-        */
+
         // Used in blog post http://adndevblog.typepad.com/cloud_and_mobile/2016/10/get-all-database-ids-in-the-model.html
         viewer.addEventListener(
           Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT,
@@ -233,9 +238,10 @@
         var button1 = new Autodesk.Viewing.UI.Button('red-bunny');
         button1.onClick = function(e) {
           var red = new THREE.Vector4(1, 0, 0, 0.5);
-          dbIds.forEach(dbId => {
+          /*dbIds.forEach(dbId => {
             viewer.setThemingColor(dbId, red);
-          });
+          });*/
+          color = red;
         };
         button1.addClass('red-bunny');
         button1.setToolTip('Red Bunny');
@@ -244,9 +250,10 @@
         var button2 = new Autodesk.Viewing.UI.Button('green-bunny');
         button2.onClick = function(e) {
           var green = new THREE.Vector4(0, 0.5, 0, 0.5);
-          dbIds.forEach(dbId => {
+          /*dbIds.forEach(dbId => {
             viewer.setThemingColor(dbId, green);
-          });
+          });*/
+          color = green;
         };
         button2.addClass('green-bunny');
         button2.setToolTip('Green Bunny');
@@ -255,9 +262,10 @@
         var button3 = new Autodesk.Viewing.UI.Button('blue-bunny');
         button3.onClick = function(e) {
           var blue = new THREE.Vector4(0, 0, 0.5, 0.5);
-          dbIds.forEach(dbId => {
+          /*dbIds.forEach(dbId => {
             viewer.setThemingColor(dbId, blue);
-          });
+          });*/
+          color = blue;
         };
         button3.addClass('blue-bunny');
         button3.setToolTip('Blue Bunny');
